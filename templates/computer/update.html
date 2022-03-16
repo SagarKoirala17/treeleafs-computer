@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %} Update {% endblock %}</title>
+</head>
+<body>
+{% block body %}
+
+<div class="container my-4">
+    <form method="POST" action="{% url 'update' computer.id %}">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="computer_code" class="form-label">Computer Code</label>
+            <input type="text" class="form-control" id="computer_code" name="computer_code" value="{{ computer.computer_code }}">
+
+        </div>
+        <div class="mb-3">
+            <label for="computer" class="form-label">Computer </label>
+            <select class="form-control" id="computer" name="computer">
+                {% for s in specification %}
+                {% if s.id == computer.computer.id %}
+                    <option value="{{ s.id }}" selected>{{ s.generation }}</option>
+                {% else %}
+                    <option value="{{ s.id }}">{{ s.generation }}</option>
+                {% endif %}
+
+
+                {% endfor %}
+            </select>
+
+        </div>
+        <div class="mb-3">
+            <label for="quantity" class="form-label">Quantity</label>
+            <input type="number" class="form-control" id="quantity" name="quantity" value="{{ computer.quantity }}">
+        </div>
+        <div class="mb-3">
+            <label for="unitrate" class="form-label">Unit Rate</label>
+            <input type="number" class="form-control" id="unitrate" name="unitrate" value="{{ computer.unit_rate }}">
+        </div>
+
+
+
+        <button type="submit" class="btn btn-primary">Update</button>
+    </form>
+</div>
+{% endblock %}
+</body>
+
+</html>

@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% block body %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %} Homepage {% endblock %}</title>
+</head>
+<body>
+<div class="container my-4">
+    <div class="card">
+        <div class="card-header">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h1>All Computers</h1>
+                </div>
+                <div class="col text-end">
+                    <button class="btn btn-dark"><a href="{% url 'create' %}" class="link-warning">Add New Computer </a>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                {% for c in computer %}
+                <div class="col-md-4">
+
+                    <div class="card">
+
+                        <div class="card-body">
+                            <h5>{{ c.computer }}</h5>
+                            <p>Computer Code:{{ c.computer_code }}</p>
+                            <p>Quantity: {{ c.quantity }}</p>
+                            <p>Unit Price: {{ c.unit_rate}}</p>
+                            <p>Total: {{ c.total_price }}</p>
+                            <button type="button" class="btn btn-warning mx-2"><a
+                                    href="{% url 'update'  c.id %}">Update</a>
+                            </button>
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal">
+                                Delete
+                            </button>
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                 aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Are You sure you want to delete this?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                Close
+                                            </button>
+                                                <button type="button" class="btn btn-danger"><a href="{% url 'delete' c.id %}">Delete</a></button>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>
+{% endblock %}
